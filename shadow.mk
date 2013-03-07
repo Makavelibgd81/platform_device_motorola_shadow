@@ -1,0 +1,181 @@
+#
+# Copyright (C) 2011 The Android Open Source Project
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+#
+# This is the product configuration for a generic CDMA shadow,
+# not specialized for any geography.
+#
+## (1) First, the most specific values, i.e. the aspects that are specific to CDMA
+
+PRODUCT_COPY_FILES += \
+    device/motorola/shadow/init.mapphone_cdma.rc:root/init.mapphone_cdma.rc \
+    device/motorola/shadow/ueventd.mapphone_cdma.rc:root/ueventd.mapphone_cdma.rc
+
+## (2) Also get non-open-source CDMA-specific aspects if available
+$(call inherit-product-if-exists, vendor/motorola/shadow/shadow-vendor.mk)
+
+## (3)  Finally, the least specific parts, i.e. the non-CDMA-specific aspects
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.kernel.android.ril=yes \
+    persist.ril.mux.noofchannels=7 \
+    persist.ril.mux.ttydevice=/dev/ttyS0 \
+    persist.ril.modem.ttydevice=/dev/ttyUSB0 \
+    persist.ril.features=0x07 \
+    persist.ril.mux.retries=500 \
+    persist.ril.mux.sleep=2 \
+    ro.default_usb_mode=4 \
+    ro.product.multi_touch_enabled=true \
+    ro.product.max_num_touch=2 \
+    ro.telephony.sms_segment_size=160 \
+    ro.setupwizard.mode=OPTIONAL \
+    ro.com.google.gmsversion=2.2_r7 \
+    ro.telephony.call_ring.multiple=false \
+    ro.telephony.call_ring.delay=600 \
+    ro.url.safetylegal=http://www.motorola.com/staticfiles/Support/legal/?model=A855 \
+    ro.setupwizard.enable_bypass=1 \
+    ro.com.google.clientid=android-motorola \
+    ro.com.google.clientidbase=android-verizon \
+    ro.com.google.clientidbase.am=android-verizon \
+    ro.url.legal=http://www.google.com/intl/%s/mobile/android/basic/phone-legal.html \
+    ro.url.legal.android_privacy=http://www.google.com/intl/%s/mobile/android/basic/privacy.html \
+    ro.cdma.home.operator.numeric=310004 \
+    ro.cdma.home.operator.alpha=Verizon \
+    ro.config.vc_call_vol_steps=7 \
+    ro.cdma.homesystem=64,65,76,77,78,79,80,81,82,83 \
+    ro.cdma.data_retry_config=default_randomization=2000,0,0,120000,180000,540000,960000 \
+    ro.com.motorola.smartsensor=true \
+    ro.media.camcorder.720p=3gp,m4v,30,10000000,aac,96000,44100,2 \
+    ro.media.camcorder.d1NTSC=3gp,h264,30,6000000,aac,96000,44100,2 \
+    ro.media.camcorder.vga=3gp,h264,30,4000000,aac,96000,44100,2 \
+    ro.media.camcorder.cif=3gp,h264,30,1500000,aac,96000,44100,2 \
+    ro.media.camcorder.qvga=3gp,h264,15,500000,aac,32000,16000,2 \
+    ro.media.camcorder.mms=3gp,h264,15,128000,amrnb,12200,8000,1 \
+    ro.media.capture.maxres=8m \
+    ro.media.capture.fast.fps=4 \
+    ro.media.capture.slow.fps=60 \
+    ro.media.capture.flash=led \
+    ro.media.capture.classification=classD \
+    ro.media.capture.useDFR=1 \
+    ro.media.camera.focal=3564.0,3564.0 \
+    ro.media.camera.principal=1632.0,1224.0 \
+    ro.media.camera.skew=0.0 \
+    ro.media.camera.distortion=0.0,0.0,0.0,0.0,0.0 \
+    ro.media.camera.calresolution=3264,2448 \
+    ro.media.capture.shuttertone=1 \
+    ro.media.capture.torchIntensity=50 \
+    ro.media.sensor.orient=90 \
+    ro.media.panorama.defres=2048x1536 \
+    ro.media.panorama.frameres=1280x720 \
+    ro.media.capture.prevfps=28 \
+    ro.mot.hw.uaprof=http://uaprof.motorola.com/phoneconfig/MotoMB200/profile/MotoMB200.rdf \
+    ro.build.version.full=Blur_Version.2.3.340.MB810.Verizon.en.US \
+    ro.build.config.version=GAS_NA_GCXSHAD00VZW_P022 \
+    ro.build.config.date=Sun_Nov_07_23:40:30_-0600_2010 \
+    ro.kernel.android.checkjni=0
+
+DEVICE_PACKAGE_OVERLAYS += device/motorola/shadow/overlay
+
+PRODUCT_COPY_FILES += \
+    frameworks/base/data/etc/handheld_core_hardware.xml:system/etc/permissions/handheld_core_hardware.xml \
+    frameworks/base/data/etc/android.hardware.camera.flash-autofocus.xml:system/etc/permissions/android.hardware.camera.flash-autofocus.xml \
+    frameworks/base/data/etc/android.hardware.telephony.cdma.xml:system/etc/permissions/android.hardware.telephony.cdma.xml \
+    frameworks/base/data/etc/android.hardware.location.gps.xml:system/etc/permissions/android.hardware.location.gps.xml \
+    frameworks/base/data/etc/android.hardware.wifi.xml:system/etc/permissions/android.hardware.wifi.xml \
+    frameworks/base/data/etc/android.hardware.sensor.proximity.xml:system/etc/permissions/android.hardware.sensor.proximity.xml \
+    frameworks/base/data/etc/android.hardware.sensor.light.xml:system/etc/permissions/android.hardware.sensor.light.xml \
+    frameworks/base/data/etc/android.hardware.touchscreen.multitouch.distinct.xml:system/etc/permissions/android.hardware.touchscreen.multitouch.distinct.xml
+
+# media config xml file
+PRODUCT_COPY_FILES += \
+    device/motorola/shadow/media_profiles.xml:system/etc/media_profiles.xml \
+    device/motorola/shadow/01_Vendor_ti_omx.cfg:system/etc/01_Vendor_ti_omx.cfg
+
+PRODUCT_PACKAGES += \
+    librs_jni \
+    tiwlan.ini \
+    dspexec \
+    libbridge \
+    overlay.omap3 \
+    wlan_cu \
+    libtiOsLib \
+    wlan_loader \
+    libCustomWifi \
+    wpa_supplicant.conf \
+    dhcpcd.conf \
+    libOMX.TI.AAC.encode \
+    libOMX.TI.AMR.encode \
+    libOMX.TI.WBAMR.encode \
+    libOMX.TI.JPEG.Encoder \
+    libLCML \
+    libOMX_Core \
+    libOMX.TI.Video.Decoder \
+    libOMX.TI.Video.encoder \
+    libVendor_ti_omx \
+    sensors.shadow \
+    lights.shadow \
+    libaudiopolicy \
+    Usb
+
+# we have enough storage space to hold precise GC data
+PRODUCT_TAGS += dalvik.gc.type-precise
+
+# shadow uses high-density artwork where available
+PRODUCT_LOCALES += hdpi
+
+PRODUCT_COPY_FILES += \
+    device/motorola/shadow/DroidXBootstrap.cfg:system/etc/DroidXBootstrap.cfg \
+    device/motorola/shadow/Droid2Bootstrap.cfg:system/etc/Droid2Bootstrap.cfg \
+    device/motorola/shadow/vold.fstab:system/etc/vold.fstab \
+    device/motorola/shadow/apns-conf.xml:system/etc/apns-conf.xml \
+    device/motorola/shadow/mount_ext3.sh:system/bin/mount_ext3.sh
+
+# these need to be here for the installer, just put them here for now
+PRODUCT_COPY_FILES += \
+    device/motorola/shadow/releaseutils/mke2fs:system/etc/releaseutils/mke2fs \
+    device/motorola/shadow/releaseutils/tune2fs:system/etc/releaseutils/tune2fs \
+    device/motorola/shadow/releaseutils/check_kernel:system/etc/releaseutils/check_kernel \
+    device/motorola/shadow/releaseutils/finalize_release:system/etc/releaseutils/finalize_release
+
+# copy all kernel modules under the "modules" directory to system/lib/modules
+PRODUCT_COPY_FILES += $(shell \
+    find device/motorola/shadow/modules -name '*.ko' \
+    | sed -r 's/^\/?(.*\/)([^/ ]+)$$/\1\2:system\/lib\/modules\/\2/' \
+    | tr '\n' ' ')
+
+ifeq ($(TARGET_PREBUILT_KERNEL),)
+LOCAL_KERNEL := device/motorola/shadow/kernel
+else
+LOCAL_KERNEL := $(TARGET_PREBUILT_KERNEL)
+endif
+
+PRODUCT_COPY_FILES += \
+    $(LOCAL_KERNEL):kernel
+
+# Make the new OMAP stuff compile correctly
+
+FRAMEWORKS_BASE_SUBDIRS += \
+            $(addsuffix /java, \
+            omapmmlib \
+         )
+
+$(call inherit-product-if-exists, vendor/motorola/shadow/shadow-vendor.mk)
+
+# stuff common to all Motorola phones
+$(call inherit-product, device/motorola/common/common_hijack.mk)
+
+$(call inherit-product, build/target/product/small_base.mk)
+
+PRODUCT_NAME := generic_shadow
+PRODUCT_DEVICE := shadow
